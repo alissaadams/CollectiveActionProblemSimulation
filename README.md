@@ -15,7 +15,6 @@ This simulation explores how individual decisions affect utility and outcomes fo
 ### Variables 
     * Let n_b = number of countries that build arms
     * Let n_nb = number of countries that do NOT build arms
-    * n = total number of countries in the game (so  n_b +  n_nb = n) !!!!!!!!!!!!
     * Ub = utility for building arms 
     * Unb = utility for not building arms
 
@@ -94,7 +93,7 @@ $$
 
 - $$U_A^{DD}$$: This is the utility for player A if they defect while others also defect
 
-- **$$\\prod_{i \neq A} p_i\$$**: This notation means we're multiplying the probabilities of the other players (all players except A) cooperating!!!(maybe defecting?). Each $$p_i$$ represents the probability that player $$i$$ cooperates.
+- **$$\\prod_{i \neq A} p_i\$$**: This notation means we're multiplying the probabilities of the other players (all players except A) cooperating. Each $$p_i$$ represents the probability that player $$i$$ cooperates.
 
 - **\$$\prod_{i \neq A} (1 - p_i)\$$**: This notation indicates the product of the probabilities that the other players do not cooperate. $$p_i$$ represents the probability that player $$i$$ defects.
 
@@ -110,12 +109,33 @@ $$
   *  reputation for defecting/cooperating
 > The idea is the relationship value varies for each calculation, allowing each country to assess the probabilities based on its unique interactions with other countries. In this example the relationship value is between current player A and another country $$i$$. A is going to sum all of the probabilities of all other players ($$i$$) to use in its calculation for its own expected utility, then we'll move to player B and they'll do the same. This will continue for N players.
 * w1, w2, and w3 are weights that determine the influence of each factor on the probability of cooperation and can be adjusted based on strategical importance, or fixed values
-* We're using an exponential function 
+* We're using an exponential function because it will always output a value between 0 and 1, where 0 means an event will never occur, and 1 means it will certainly occur
 
 
 ## Analysis & Theorems
 
-* 
+* The Nash Equilibrium Theorem guarantees that any mixed strategy game with a finite number of strategies has at least one Nash equilibrium
+  * Our game has two strategies, therefore finite, influenced by the number of other countries who build arms
+* Since players are maximizing utility based on probabilities of what other countries will do, the nash occurs when:
+  * All countries’ best responses are in equilibrium meaning no country has incentive to change its strategy
+* Countries may find defecting as a dominant strategy, leading to a *suboptimal outcome*
+* Our utility functions are convex meaning:
+  * As players increase their investment in arms (defection), the marginal utility gained decreases
+  * players may be risk-averse, preferring strategies that ensure a more stable and predictable outcome
+
+## Mechanisms
+* If we recognize that players may prefer strategies that mitigate risk due to the convexity of our function, our mechanisms can be aimed more toward incentivizing cooperation, and disincentivizing defection to achieve a more optimal outcome
+* Some ideas for incentives include:
+  * Mutual alliances - if a country defects, their cost could increase(losing alliance benefits/points)
+  * Providing nations with anti-nuclear arms - adding peace points to utility function, and decreasing the perceived threat making cooperation more attractive
+  * Reputation costs - damaged reputation increases the cost by losing ability to form alliances, or influences other countries to defect when considering the probability of defection
+  * Peace points - gain utility for cooperation
+  * Security gaurantee from other countries - reduces perceived threat, reduces cost in utility function
+  * Economic advantages - countries involved in disarmament are rewarded with economic/trade advantages increasing utility 
+ 
+
+
+
 
 
 
