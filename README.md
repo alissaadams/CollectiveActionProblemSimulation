@@ -69,7 +69,7 @@ To make the decision each round, we formulated expected utility functions for bo
 #### Expected Utility if Country A Cooperates:
 
 $$
-E[U_A \mid A \text{ cooperates}] = U_A^{CC} \cdot \prod_{i \neq A} p_i + U_A^{CD} \cdot \prod_{i \neq A} (1 - p_i) + \sum_{S \subset \{1, 2, \ldots, N\}, S \neq A} U_A^{C,S} \cdot \prod_{i \in S} p_i \cdot \prod_{i \in \bar{S}} (1 - p_i)
+E[U_A \mid A \text{ cooperates}] = U_A^{CC} \cdot \prod_{i \neq A} p_i^{i_r, iA, 0} + U_A^{CD} \cdot \prod_{i \neq A} (1 - p_i^{i_r, iA, 0}) + \sum_{S \subset \{1, 2, \ldots, N\}, S \neq A} U_A^{C,S} \cdot \prod_{i \in S} p_i^{i_r, iA, 0} \cdot \prod_{i \in \bar{S}} (1 - p_i^{i_r, iA, 0})
 $$
 
 - $$U_A^{CC}$$: This is the utility for player A if they cooperate while others also cooperate
@@ -86,7 +86,7 @@ $$
 #### Expected Utility if Country A Does NOT Coooperate:
 
 $$
-E[U_A \mid A \text{ defects}] = U_A^{DC} \cdot \prod_{i \neq A} p_i + U_A^{DD} \cdot \prod_{i \neq A} (1 - p_i) + \sum_{S \subset \{1, 2, \ldots, N\}, S \neq A} U_A^{D,S} \cdot \prod_{i \in S} p_i \cdot \prod_{i \in \bar{S}} (1 - p_i)
+E[U_A \mid A \text{ defects}] = U_A^{DC} \cdot \prod_{i \neq A} p_i^{i_r, iA, 1} + U_A^{DD} \cdot \prod_{i \neq A} (1 - p_i^{i_r, iA, 1}) + \sum_{S \subset \{1, 2, \ldots, N\}, S \neq A} U_A^{D,S} \cdot \prod_{i \in S} p_i^{i_r, iA, 1} \cdot \prod_{i \in \bar{S}} (1 - p_i^{i_r, iA, 1})
 $$
 
 - $$U_A^{DC}$$:: This is the utility for player A if they cooperate while others defect
