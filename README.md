@@ -56,13 +56,13 @@ $$
     * Y is the constant representing the scale of the cost
     * n_B is the number of countries not building arms
 
-### Mixed Strategy Game
+!!!!!!!!!!!### Mixed Strategy Game
 We chose a mixed strategy game in order to simulate a more realistic environment, where countries are faced with uncertainties of other nations' actions. Since a mixed strategy game allows for randomized choices from players, this will better show the unpredictability in how nations might choose to build arms or cooperate. We wanted to incorporate more factors playing a role in the decision making process. Each country would consider things like international relationships, reputation, and previous choices to calculate the probability that other countries would cooperate or defect, and base their own decision off of that probability. 
 
 To make the decision each round, we formulated expected utility functions for both if a country cooperates or deviates. The utility differs depending on the choice they make, but in both cases they need to consider:
-  * Probability of all countries cooperating (C)
-  * Probability of all countries defecting (B)
-  * All probabilities of all combinations (2 ^ N-1) of each country either cooperating or defecting (D) 
+  * Probability of all countries cooperating
+  * Probability of all countries defecting
+  * All probabilities of all combinations (2 ^ N-1) of each country either cooperating or defecting
 
 ### Expected Utilities:
 
@@ -109,7 +109,7 @@ $$
   *  player A's choice
   *  player i's relationship with A and,
   *  player i's reputation for defecting/cooperating
-* player A represents some "other" player. So, if we had nations A-Z, we would need to call this function using player A on nations B-Z with both choices, cooperating and defecting. Then i would represent each nation, B-Z. Then, we would call this function using player B on nations A and C-Z. In this case, all the A's would be changed to Bs. And the i would represent nations A and C-Z. Thus, A is not really a "fixed" nation as it changes depending on which country we are looking at. 
+!!!!!!!!!!!* player A represents some "other" player. So, if we had nations A-Z, we would need to call this function using player A on nations B-Z with both choices, cooperating and defecting. Then i would represent each nation, B-Z. Then, we would call this function using player B on nations A and C-Z. In this case, all the A's would be changed to Bs. And the i would represent nations A and C-Z. Thus, A is not really a "fixed" nation as it changes depending on which country we are looking at. 
 > The idea is the relationship value varies for each calculation, allowing each country to assess the probabilities based on its unique interactions with other countries. In this example the relationship value is between current player A and another country $$i$$. A is going to sum all of the probabilities of all other players ($$i$$) to use in its calculation for its own expected utility, then we'll move to player B and they'll do the same. This will continue for N players.
 * w1, w2, and w3 are weights that determine the influence of each factor on the probability of cooperation and can be adjusted based on strategical importance, or fixed values
 * We're using an exponential function because it will always output a value between 0 and 1, where 0 means an event will never occur, and 1 means it will certainly occur
