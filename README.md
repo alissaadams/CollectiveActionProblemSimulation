@@ -60,9 +60,9 @@ $$
 We chose a mixed strategy game in order to simulate a more realistic environment, where countries are faced with uncertainties of other nations' actions. Since a mixed strategy game allows for randomized choices from players, this will better show the unpredictability in how nations might choose to build arms or cooperate. We wanted to incorporate more factors playing a role in the decision making process. Each country would consider things like international relationships, reputation, and previous choices to calculate the probability that other countries would cooperate or defect, and base their own decision off of that probability. 
 
 To make the decision each round, we formulated expected utility functions for both if a country cooperates or deviates. The utility differs depending on the choice they make, but in both cases they need to consider:
-  * Probability of all countries cooperating
-  * Probability of all countries defecting
-  * All probabilities of all combinations (2 ^ N-1) of each country either cooperating or defecting (D) !!!!!!!!!!!!
+  * Probability of all countries cooperating (C)
+  * Probability of all countries defecting (B)
+  * All probabilities of all combinations (2 ^ N-1) of each country either cooperating or defecting (D) 
 
 ### Expected Utilities:
 
@@ -79,7 +79,7 @@ $$
 - **$$\prod_{i \neq A} p_i$$**: This notation means we're multiplying the probabilities of the other players (all players except A) cooperating. Each $$p_i$$ represents the probability that player $$i$$ cooperates
 
 - **$$\prod_{i \neq A} (1 - p_i)$$**: This notation indicates the product of the probabilities that the other players do not cooperate. $$1 - p_i$$ represents the probability that player $$i$$ defects
-
+!!!! Add explanation for summation
 
 
 
@@ -96,6 +96,8 @@ $$
 - **$$\\prod_{i \neq A} p_i\$$**: This notation means we're multiplying the probabilities of the other players (all players except A) cooperating. Each $$p_i$$ represents the probability that player $$i$$ cooperates.
 
 - **\$$\prod_{i \neq A} (1 - p_i)\$$**: This notation indicates the product of the probabilities that the other players do not cooperate. $$p_i$$ represents the probability that player $$i$$ defects.
+
+!!!! Add explanation for summation
 
 ### Probability Function:
 
