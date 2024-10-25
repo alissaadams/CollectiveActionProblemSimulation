@@ -78,10 +78,11 @@ $$
 - $$U_A^{CC}$$: This is the utility for player A if they cooperate while others also cooperate
 - $$U_A^{CD}$$: This is the utility for player A if they cooperate while others defect
 
+- **$$i_r, iA, 0$$**: Reputation of i is **$$i_r$$**, i's relationship with A is **$$iA$$**, and 0 is i's choice (0 meaning defection, 1 meaning cooperation) 
 
-- **$$\prod_{i \neq A} p_i$$**: This notation means we're multiplying the probabilities of the other players (all players except A) cooperating. Each $$p_i$$ represents the probability that player $$i$$ cooperates
+- **$$\prod_{i \neq A} p_i^{i_r, iA, 0}$$**: This notation means we're multiplying the probabilities of the other players (all players except A) cooperating. Each $$p_i$$ represents the probability that player $$i$$ cooperates 
 
-- **$$\prod_{i \neq A} (1 - p_i)$$**: This notation indicates the product of the probabilities that the other players do not cooperate. $$1 - p_i$$ represents the probability that player $$i$$ defects
+- **$$\prod_{i \neq A} (1 - p_i^{i_r, iA, 0})$$**: This notation indicates the product of the probabilities that the other players do not cooperate. $$1 - p_i$$ represents the probability that player $$i$$ defects
   
 - **$$\sum_{S \subset \{1, 2, \ldots, N\}, S \neq A}$$**: This terms sums over all subsets of players excluding A
 - **$$U_A^{C,S}$$**: Represents the utility for Player A given a specific subset 𝑆 of players cooperate while the others do not
@@ -99,13 +100,14 @@ $$
 
 - $$U_A^{DD}$$: This is the utility for player A if they defect while others also defect
 
-- **$$\\prod_{i \neq A} p_i\$$**: This notation means we're multiplying the probabilities of the other players (all players except A) cooperating. Each $$p_i$$ represents the probability that player $$i$$ cooperates.
+- **$$i_r, iA, 1$$**: Reputation of i is **$$i_r$$**, i's relationship with A is **$$iA$$**, and 1 is i's choice (1 meaning cooperation, 0 meaning defection)
 
-- **\$$\prod_{i \neq A} (1 - p_i)\$$**: This notation indicates the product of the probabilities that the other players do not cooperate. $$p_i$$ represents the probability that player $$i$$ defects.
+- **$$\\prod_{i \neq A} p_i^{i_r, iA, 1}\$$**: This notation means we're multiplying the probabilities of the other players (all players except A) cooperating. Each $$p_i$$ represents the probability that player $$i$$ cooperates 
+
+- **\$$\prod_{i \neq A} (1 - p_i^{i_r, iA, 1})\$$**: This notation indicates the product of the probabilities that the other players do not cooperate. $$p_i$$ represents the probability that player $$i$$ defects.
 
 - **$$\sum_{S \subset \{1, 2, \ldots, N\}, S \neq A}$$**: This terms sums over all subsets of players excluding A
-
-- **$$\sum_{S \subset \{1, 2, \ldots, N\}, S \neq A}$$**: This terms sums over all subsets of players excluding A
+  
 - **$$U_A^{C,S}$$**: Represents the utility for Player A given a specific subset 𝑆 of players cooperate while the others do not
 - **$$\prod_{i \in S} p_i^{i_r, iA, 1}$$**: Gives probability that all players in subset 𝑆 will cooperate
 - **$$\prod_{i \in \bar{S}} (1 - p_i^{i_r, iA, 1})$$**: Gives probability that all players not in 𝑆 will defect
