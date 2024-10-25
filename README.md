@@ -100,13 +100,14 @@ $$
 ### Probability Function:
 
 $$
-P_i = \frac{1}{1 + e^{-(w_1 \cdot i_{choice} + w_2 \cdot iA_{relationship} + w_3 \cdot i_{reputation})}}
+P_i = \frac{1}{1 + e^{-(w_1 \cdot A_{choice} + w_2 \cdot iA_{relationship} + w_3 \cdot i_{reputation})}}
 $$
 
-* $$P_i$$ shows the probabilty that player A decides to cooperate based on each player $$i$$'s:
-  *  previous choice
-  *  relationship with A and,
-  *  reputation for defecting/cooperating
+* $$P_i$$ shows the probabilty that player i decides to cooperate based on:
+  *  player A's choice
+  *  player i's relationship with A and,
+  *  player i's reputation for defecting/cooperating
+* player A represents some "other" player. So, if we had nations A-Z, we would need to call this function using player A on nations B-Z with both choices, cooperating and defecting. Then i would represent each nation, B-Z. Then, we would call this function using player B on nations A and C-Z. In this case, all the A's would be changed to Bs. And the i would represent nations A and C-Z. Thus, A is not really a "fixed" nation as it changes depending on which country we are looking at. 
 > The idea is the relationship value varies for each calculation, allowing each country to assess the probabilities based on its unique interactions with other countries. In this example the relationship value is between current player A and another country $$i$$. A is going to sum all of the probabilities of all other players ($$i$$) to use in its calculation for its own expected utility, then we'll move to player B and they'll do the same. This will continue for N players.
 * w1, w2, and w3 are weights that determine the influence of each factor on the probability of cooperation and can be adjusted based on strategical importance, or fixed values
 * We're using an exponential function because it will always output a value between 0 and 1, where 0 means an event will never occur, and 1 means it will certainly occur
