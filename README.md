@@ -67,6 +67,7 @@ To make the decision each round, we formulated expected utility functions for bo
   * All probabilities of all combinations (2 ^ N-1) of each country either cooperating or defecting
 
 ### Expected Utilities:
+These functions consider all possible outcomes of player 𝐴's decision to cooperate or defect, factoring in both the best-case scenario (where all cooperate) and worse-case scenarios (where some or all defect). This reflects the uncertainty and strategic complexity in international relations.
 
 #### Expected Utility if Country A Cooperates:
 
@@ -86,7 +87,6 @@ $$
 - **$$U_A^{C,S}$$**: Represents the utility for Player A given a specific subset 𝑆 of players cooperate while the others do not
 - **$$\prod_{i \in S} p_i^{i_r, iA, 0}$$**: Gives probability that all players in subset 𝑆 will cooperate
 - **$$\prod_{i \in \bar{S}} (1 - p_i^{i_r, iA, 0})$$**: Gives probability that all players not in 𝑆 will defect
-
 
 
 #### Expected Utility if Country A Does NOT Coooperate:
