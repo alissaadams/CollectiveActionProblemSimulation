@@ -4,7 +4,8 @@ import itertools
 
 
 if __name__ == "__main__":
-
+# Function to generate relationships between nations
+# 'n' represents the number of players/nations
     def getRelationships(n):
         relationships = dict()
         for i in range(n):
@@ -21,6 +22,8 @@ if __name__ == "__main__":
                 rand = random.uniform(-1, 1)
                 relationships[i][j] = rand
         return relationships
+     # Function to generate reputation for each nation
+    # 'lower' and 'uper' (upper) define the range of reputation values
     def getReputations(n, lower, uper):
         reputation = dict()
 
@@ -28,8 +31,10 @@ if __name__ == "__main__":
             reputation[i] = random.uniform(lower, uper)
 
         return reputation
+    # Function to calculate utility when cooperating
     def cooperatingUtility(numPlayersDefecting, cooperatingUtility=15, cooperatingScalar=3):
         return cooperatingUtility - (cooperatingScalar * math.log(1 + numPlayersDefecting))
+    # Function to calculate utility when defecting
     def defectingUtility(numPlayersDefecting, defectingUtility=30, defectingScalar=2):
         return defectingUtility - (defectingScalar * math.log(1 + numPlayersDefecting))
     def probabiltiy(a, b, choice):
