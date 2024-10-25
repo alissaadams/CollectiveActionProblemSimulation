@@ -1,5 +1,7 @@
 # Nuclear Arms - A Security Dilemma 
 
+**Note: We have two versions of the simulation, our original and our newest version. This readME describes the updated version(V2), and our original is there for our reference.*
+
 ## Scenario
 There are N countries who have the ability to build nuclear arms. Each country has incentive to build arms for protection based on the perceived threat of other countries also building/owning nuclear arms. However, it's in all countries' best interest to participate in disarmament to reduce the risk of nuclear conflict. Collectively they benefit, but individual incentive promotes defection. This project simulates the Security Dilemma in game theory, where multiple players(countries) choose between two strategies: to defect(build arms) or cooperate(disarmament).
 This simulation explores how individual decisions affect utility and outcomes for other players. 
@@ -24,7 +26,7 @@ $$
 U_b = A - C(n_B)
 $$
 
-    * A is the utility gained for building arms
+    * A is the utility gained for building arms, a fixed value
     * C(n_b) is the cost function shown below:
 
 
@@ -44,7 +46,7 @@ $$
 U_{nb} = B - Y*ln(n_B + 1)
 $$ 
 
-    * B is the utilty that a nation gets for not building arms (like peace points)
+    * B is the utilty that a nation gets for not building arms (like peace points), a fixed value
     * G(n_b) is the cost function for not building arms shown below:
 
 $$
@@ -56,8 +58,8 @@ $$
     * Y is the constant representing the scale of the cost
     * n_B is the number of countries not building arms
 
-!!!!!!!!!!!### Mixed Strategy Game
-We chose a mixed strategy game in order to simulate a more realistic environment, where countries are faced with uncertainties of other nations' actions. Since a mixed strategy game allows for randomized choices from players, this will better show the unpredictability in how nations might choose to build arms or cooperate. We wanted to incorporate more factors playing a role in the decision making process. Each country would consider things like international relationships, reputation, and previous choices to calculate the probability that other countries would cooperate or defect, and base their own decision off of that probability. 
+### Dominant Strategy Game
+We chose a dominant strategy game in order to simulate a more realistic environment, where countries are faced with uncertainties of other nations' actions but still choose what's in their best interest. In this game, each country has a clear best strategy(defecting) regardless of what other nations choose to do. We wanted to incorporate more factors playing a role in the decision making process to express the complexity of strategic considerations countries have to make. Each country would consider things like international relationships, reputation, and previous choices to calculate the probability that other countries would cooperate or defect, and base their own decision off of that probability. 
 
 To make the decision each round, we formulated expected utility functions for both if a country cooperates or deviates. The utility differs depending on the choice they make, but in both cases they need to consider:
   * Probability of all countries cooperating
@@ -82,7 +84,7 @@ $$
   
 - **$$\sum_{S \subset \{1, 2, \ldots, N\}, S \neq A}$$**: This terms sums over all subsets of players excluding A
 - **$$U_A^{C,S}$$**: Represents the utility for Player A given a specific subset 𝑆 of players cooperate while the others do not
-- **$$\prod_{i \in S} p_i^{i_r, iA, 0}$$**: Gives probability that all players in subset 𝑆 will defect
+- **$$\prod_{i \in S} p_i^{i_r, iA, 0}$$**: Gives probability that all players in subset 𝑆 will cooperate
 - **$$\prod_{i \in \bar{S}} (1 - p_i^{i_r, iA, 0})$$**: Gives probability that all players not in 𝑆 will defect
 
 
@@ -103,34 +105,58 @@ $$
 
 - **$$\sum_{S \subset \{1, 2, \ldots, N\}, S \neq A}$$**: This terms sums over all subsets of players excluding A
 
+- **$$\sum_{S \subset \{1, 2, \ldots, N\}, S \neq A}$$**: This terms sums over all subsets of players excluding A
+- **$$U_A^{C,S}$$**: Represents the utility for Player A given a specific subset 𝑆 of players cooperate while the others do not
+- **$$\prod_{i \in S} p_i^{i_r, iA, 1}$$**: Gives probability that all players in subset 𝑆 will cooperate
+- **$$\prod_{i \in \bar{S}} (1 - p_i^{i_r, iA, 1})$$**: Gives probability that all players not in 𝑆 will defect
+
 ### Probability Function:
 
 $$
-P_i = \frac{1}{1 + e^{-(w_1 \cdot A_{choice} + w_2 \cdot iA_{relationship} + w_3 \cdot i_{reputation})}}
+P_i = \frac{1}{1 + e^{-(w_1 \cdot i_{choice} + w_2 \cdot iN_{relationship} + w_3 \cdot i_{reputation})}}
 $$
 
 * $$P_i$$ shows the probabilty that player i decides to cooperate based on:
-  *  player A's choice
-  *  player i's relationship with A and,
-  *  player i's reputation for defecting/cooperating
-!!!!!!!!!!!* player A represents some "other" player. So, if we had nations A-Z, we would need to call this function using player A on nations B-Z with both choices, cooperating and defecting. Then i would represent each nation, B-Z. Then, we would call this function using player B on nations A and C-Z. In this case, all the A's would be changed to Bs. And the i would represent nations A and C-Z. Thus, A is not really a "fixed" nation as it changes depending on which country we are looking at. 
-> The idea is the relationship value varies for each calculation, allowing each country to assess the probabilities based on its unique interactions with other countries. In this example the relationship value is between current player A and another country $$i$$. A is going to sum all of the probabilities of all other players ($$i$$) to use in its calculation for its own expected utility, then we'll move to player B and they'll do the same. This will continue for N players.
-* w1, w2, and w3 are weights that determine the influence of each factor on the probability of cooperation and can be adjusted based on strategical importance, or fixed values
+  *  player i's previous choice
+  *  player i's relationship with N and,
+  *  player i's reputation for defecting/cooperating 
+> The idea is the relationship value varies for each calculation, allowing each country to assess the probabilities based on its unique relationships with other countries. In this example the relationship value is between current player N and another country $$i$$. Player N is going to calculate the probability based on $$i$$'s reputation, N's relationship with $$i$$, and $$i$$'s previous decision to defect or cooperate. They will calculate this for all players $$i$$. We will then move to player N+1, and N+1 will do the same. This will continue for N players.
+* w1, w2, and w3 are weights that determine the influence of each factor on the probability of cooperation and are fixed values in this implementation
 * We're using an exponential function because it will always output a value between 0 and 1, where 0 means an event will never occur, and 1 means it will certainly occur
 
+## Simulation Description
+
+Simulation V2 uses our new utility functions for an n player game. We coded this simulation so that it represents a realistic real world outcome. 
+
+In this simulation, there are two rounds. In both rounds, each nation compares its expected utility when cooperating to their expected utility when defecting. Each nation then chooses the maximum between the two. 
+
+In this simulation, one important factor is the “reputation” of each nation. This is a number from 0 to 1. Zero means that a nation will always defect and one means a nation will always cooperate. This reputation is used in the probability function and is weighed much heavier than all other parameters. 
+
+In the first round, all n players should defect. This is because in the real world, most nations are skeptical of each other and will assume that every other nation is very likely to defect and build arms. Thus, it's in every nation's best interest to also defect and build arms. To represent real world conditions, we set the reputation of each nation to range from 0 to 0.3 to show the initial cautious outlook nations have on one another. 
+
+In our second round, we want to show what could be possible with future mechanisms. We change each country's reputation to range from 0.7 to 1.0, showing more developed and trustworthy relationships between nations. Thus, each nation should now cooperate. This is because, if everyone is willing to cooperate, every nation gets more utility compared to when they defect. 
+
+Therefore, this second round shows that with the proper mechanisms, we can reach a globally optimal Nash, where no nations defect! 
+
+Simulation V1 represents an older, simpler model which achieves the same results. However, simulation V1 does not use our new utility functions.
 
 ## Analysis & Theorems
 
-* The Nash Equilibrium Theorem guarantees that any mixed strategy game with a finite number of strategies has at least one Nash equilibrium
-  * Our game has two strategies, therefore finite, influenced by the number of other countries who build arms
 * Since players are maximizing utility based on probabilities of what other countries will do, the nash occurs when:
   * All countries’ best responses are in equilibrium meaning no country has incentive to change its strategy
+* The Nash Equilibrium is gauranteed because each player is choosing their best response 
 * Countries may find defecting as a dominant strategy, leading to a *suboptimal outcome*
 * Our utility functions are convex meaning:
   * As players increase their investment in arms (defection), the marginal utility gained decreases
   * players may be risk-averse, preferring strategies that ensure a more stable and predictable outcome
 
-## Mechanisms
+## Next Steps
+* We want to decide on mechanisms from below and incorporate them into our simulation, which will impact our utility/cost functions to create an even more realistic simulation
+* Find and fix any potential bugs in our simulation V2
+* Study and refine our utility functions, if needed 
+* Study and refine our probability function, if needed
+
+## Possible Mechanisms
 * If we recognize that players may prefer strategies that mitigate risk due to the convexity of our function, our mechanisms can be aimed more toward incentivizing cooperation, and disincentivizing defection to achieve a more optimal outcome
 * Some ideas for incentives include:
   * Mutual alliances - if a country defects, their cost could increase(losing alliance benefits/points)
@@ -138,7 +164,9 @@ $$
   * Reputation costs - damaged reputation increases the cost by losing ability to form alliances, or influences other countries to defect when considering the probability of defection
   * Peace points - gain utility for cooperation
   * Security gaurantee from other countries - reduces perceived threat, reduces cost in utility function
-  * Economic advantages - countries involved in disarmament are rewarded with economic/trade advantages increasing utility 
+  * Economic advantages - countries involved in disarmament are rewarded with economic/trade advantages increasing utility
+ 
+  
  
 
 
