@@ -1,3 +1,4 @@
+# CollectiveActionProblemSImulation
 # Nuclear Arms - A Security Dilemma 
 
 **Note: We have two versions of the simulation, our original and our newest version. This readME describes the updated version(V2), and our original is there for our reference.*
