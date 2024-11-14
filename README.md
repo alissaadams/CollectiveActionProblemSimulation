@@ -69,7 +69,6 @@ To make the decision each round, we formulated expected utility functions for bo
 
 ### Expected Utilities:
 These functions consider all possible outcomes of player 𝐴's decision to cooperate or defect, factoring in both the best-case scenario (where all cooperate) and worse-case scenarios (where some or all defect). This reflects the uncertainty and strategic complexity in international relations.
-
 #### Expected Utility if Country A Cooperates:
 
 $$
