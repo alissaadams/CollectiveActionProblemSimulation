@@ -153,21 +153,13 @@ Simulation V1 represents an older, simpler model which achieves the same results
   * As players increase their investment in arms (defection), the marginal utility gained decreases
   * players may be risk-averse, preferring strategies that ensure a more stable and predictable outcome
 
-## Next Steps
-* We want to decide on mechanisms from below and incorporate them into our simulation, which will impact our utility/cost functions to create an even more realistic simulation
-* Find and fix any potential bugs in our simulation V2
-* Study and refine our utility functions, if needed 
-* Study and refine our probability function, if needed
+## Implemented Mechanisms
+* If we recognize that players will prefer strategies that mitigate risk due to the convexity of our function, we choose mechanisms that are aimed more toward incentivizing cooperation, and disincentivizing defection to achieve a more optimal outcome
+* The three we decided on are:
+  * Global Support: It is an arbitrary value large enough to persuade players to cooperate that adds to the utility function when the player chooses to cooperate.(Ex. security assurances, financial aid) 
+  * Reputation: With a higher value(better reputation) the probability of them defecting decreases, which will result in a smaller likelihood of other nations defecting
+  * Relationship: With a higher value (better relationship) the probability of nations defecting decreases, which will result in a smaller likelihood of other nations defecting
 
-## Possible Mechanisms
-* If we recognize that players may prefer strategies that mitigate risk due to the convexity of our function, our mechanisms can be aimed more toward incentivizing cooperation, and disincentivizing defection to achieve a more optimal outcome
-* Some ideas for incentives include:
-  * Mutual alliances - if a country defects, their cost could increase(losing alliance benefits/points)
-  * Providing nations with anti-nuclear arms - adding peace points to utility function, and decreasing the perceived threat making cooperation more attractive
-  * Reputation costs - damaged reputation increases the cost by losing ability to form alliances, or influences other countries to defect when considering the probability of defection
-  * Peace points - gain utility for cooperation
-  * Security gaurantee from other countries - reduces perceived threat, reduces cost in utility function
-  * Economic advantages - countries involved in disarmament are rewarded with economic/trade advantages increasing utility
  
   
  
