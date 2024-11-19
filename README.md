@@ -24,7 +24,7 @@ This simulation explores how individual decisions affect utility and outcomes fo
 ### **Utility for Building Arms:**
 
 $$
-U_b = A - C(n_B)
+U^D = A - C(n_B)
 $$
 
     * A is the utility gained for building arms, a fixed value
@@ -44,7 +44,7 @@ $$
 ### **Utility for Not Building Arms:**
 
 $$ 
-U_{nb} = B - Y*ln(n_B + 1)
+U^C = B - Y*ln(n_B + 1)
 $$ 
 
     * B is the utilty that a nation gets for not building arms (like peace points), a fixed value
@@ -70,14 +70,14 @@ To make the decision each round, we formulated expected utility functions for bo
 ### Expected Utilities:
 These functions consider all possible outcomes of player 𝐴's decision to cooperate or defect, factoring in both the best-case scenario (where all cooperate) and worse-case scenarios (where some or all defect). This reflects the uncertainty and strategic complexity in international relations.
 
-#### Expected Utility if Country A Cooperates:
+#### Utility if Country A Cooperates:
 
 $$
-E[U_A \mid A \text{ cooperates}] = U_A^{CC} \cdot \prod_{i \neq A} p_i^{i_r, iA, 0} + U_A^{CD} \cdot \prod_{i \neq A} (1 - p_i^{i_r, iA, 0}) + \sum_{S \subset \{1, 2, \ldots, N\}, S \neq A} U_A^{C,S} \cdot \prod_{i \in S} p_i^{i_r, iA, 0} \cdot \prod_{i \in \bar{S}} (1 - p_i^{i_r, iA, 0})
+U_A \mid A \text{ cooperates} = U_A^{C} \cdot \prod_{i \neq A} p_i^{i_r, iA, 0} + U_A^{D} \cdot \prod_{i \neq A} (1 - p_i^{i_r, iA, 0}) + \sum_{S \subset \{1, 2, \ldots, N\}, S \neq A} U_A^{C} \cdot \prod_{i \in S} p_i^{i_r, iA, 0} \cdot \prod_{i \in \bar{S}} (1 - p_i^{i_r, iA, 0})
 $$
 
-- $$U_A^{CC}$$: This is the utility for player A if they cooperate while others also cooperate
-- $$U_A^{CD}$$: This is the utility for player A if they cooperate while others defect
+- $$U_A^{C}$$: This is the utility for player A if they cooperate while others also cooperate
+- $$U_A^{D}$$: This is the utility for player A if they cooperate while others defect
 
 - **$$i_r, iA, 0$$**: Reputation of i is **$$i_r$$**, i's relationship with A is **$$iA$$**, and 0 is i's choice (0 meaning defection, 1 meaning cooperation) 
 
@@ -86,20 +86,20 @@ $$
 - **$$\prod_{i \neq A} (1 - p_i^{i_r, iA, 0})$$**: This notation indicates the product of the probabilities that the other players do not cooperate. $$1 - p_i$$ represents the probability that player $$i$$ defects
   
 - **$$\sum_{S \subset \{1, 2, \ldots, N\}, S \neq A}$$**: This terms sums over all subsets of players excluding A
-- **$$U_A^{C,S}$$**: Represents the utility for Player A given a specific subset 𝑆 of players cooperate while the others do not
+- **$$U_A^{C}$$**: Represents the utility for Player A given a specific subset 𝑆 of players cooperate while the others do not
 - **$$\prod_{i \in S} p_i^{i_r, iA, 0}$$**: Gives probability that all players in subset 𝑆 will cooperate
 - **$$\prod_{i \in \bar{S}} (1 - p_i^{i_r, iA, 0})$$**: Gives probability that all players not in 𝑆 will defect
 
 
-#### Expected Utility if Country A Does NOT Coooperate:
+#### Utility if Country A Does NOT Coooperate:
 
 $$
-E[U_A \mid A \text{ defects}] = U_A^{DC} \cdot \prod_{i \neq A} p_i^{i_r, iA, 1} + U_A^{DD} \cdot \prod_{i \neq A} (1 - p_i^{i_r, iA, 1}) + \sum_{S \subset \{1, 2, \ldots, N\}, S \neq A} U_A^{D,S} \cdot \prod_{i \in S} p_i^{i_r, iA, 1} \cdot \prod_{i \in \bar{S}} (1 - p_i^{i_r, iA, 1})
+U_A \mid A \text{ defects} = U_A^{C} \cdot \prod_{i \neq A} p_i^{i_r, iA, 1} + U_A^{D} \cdot \prod_{i \neq A} (1 - p_i^{i_r, iA, 1}) + \sum_{S \subset \{1, 2, \ldots, N\}, S \neq A} U_A^{D} \cdot \prod_{i \in S} p_i^{i_r, iA, 1} \cdot \prod_{i \in \bar{S}} (1 - p_i^{i_r, iA, 1})
 $$
 
-- $$U_A^{DC}$$:: This is the utility for player A if they cooperate while others defect
+- $$U_A^{C}$$:: This is the utility for player A if they cooperate while others defect
 
-- $$U_A^{DD}$$: This is the utility for player A if they defect while others also defect
+- $$U_A^{D}$$: This is the utility for player A if they defect while others also defect
 
 - **$$i_r, iA, 1$$**: Reputation of i is **$$i_r$$**, i's relationship with A is **$$iA$$**, and 1 is i's choice (1 meaning cooperation, 0 meaning defection)
 
@@ -109,7 +109,7 @@ $$
 
 - **$$\sum_{S \subset \{1, 2, \ldots, N\}, S \neq A}$$**: This terms sums over all subsets of players excluding A
   
-- **$$U_A^{C,S}$$**: Represents the utility for Player A given a specific subset 𝑆 of players cooperate while the others do not
+- **$$U_A^{D}$$**: Represents the utility for Player A given a specific subset 𝑆 of players cooperate while the others do not
 - **$$\prod_{i \in S} p_i^{i_r, iA, 1}$$**: Gives probability that all players in subset 𝑆 will cooperate
 - **$$\prod_{i \in \bar{S}} (1 - p_i^{i_r, iA, 1})$$**: Gives probability that all players not in 𝑆 will defect
 
