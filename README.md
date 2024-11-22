@@ -128,7 +128,7 @@ In part two we implement our first mechanism. In this simulation, one important 
 Our second mechanism is through our relationships variable. We decided to implement something like a peace treaty to improve relationship values to incentivize cooperation. We set them to range between -0.5 and 0.2 to represent that some nations have somewhat positive relations while others
 have somewhat negative ones. The output should be most if not all cooperating.
 
-#### Part 3
+#### Part 4
 
 In our final part we introduce our last mechanism representing a global organization providing incentives to cooperate through things like economic advantages(financial assistance or trade), security assurances, etc. This is a value that adds to our utility function to influence players to cooperate, which is what will be seen once the simulation is run. 
 
