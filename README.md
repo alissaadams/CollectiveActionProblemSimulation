@@ -6,6 +6,7 @@
 ## Scenario
 There are N countries who have the ability to build nuclear arms. Each country has incentive to build arms for protection based on the perceived threat of other countries also building/owning nuclear arms. However, it's in all countries' best interest to participate in disarmament to reduce the risk of nuclear conflict. Collectively they benefit, but individual incentive promotes defection. This project simulates the Security Dilemma in game theory, where multiple players(countries) choose between two strategies: to defect(build arms) or cooperate(disarmament).
 This simulation explores how individual decisions affect utility and outcomes for other players. 
+Captures the fundamental tensions between individual incentives on whether to cooperate or defect to maintain peace.
 
 
 
@@ -39,6 +40,8 @@ $$
 
     * ln (n_B + 1) is the logarithm of the number of countries building arms
 >The idea for a logarithmic function is that the tensions will eventually plateau as more nations are added or contribute to their nuclear arms. The incremental impact on each nation’s utility will decrease. (+ 1 for the case where 0 countries build arms as ln(0) is undefined)
+> The use of utility functions with logarithmic costs captures diminishing returns as more countries build arms, reflecting real-world dynamics.
+>The probabilistic decision-making model accounts for trust, history, and relationships, providing a robust framework for simulations.
 
 
 ### **Utility for Not Building Arms:**
@@ -106,6 +109,8 @@ $$
   *  player i's relationship with N and,
   *  player i's reputation for defecting/cooperating 
 > The idea is the relationship value varies for each calculation, allowing each country to assess the probabilities based on its unique relationships with other countries. In this example the relationship value is between current player N and another country $$i$$. Player N is going to calculate the probability based on $$i$$'s reputation, N's relationship with $$i$$, and $$i$$'s previous decision to defect or cooperate. They will calculate this for all players $$i$$. We will then move to player N+1, and N+1 will do the same. This will continue for N players.
+> Allow weights in the probability function to change over time or depend on global events. For instance, w3 (reputation) might gain more importance after a peace summit.
+> Allow users to set the initial reputation ranges, relationship values, or the scale of global incentives. This can make the simulation interactive and exploratory.
 * w1, w2, and w3 are weights that determine the influence of each factor on the probability of cooperation and are fixed values in this implementation
 * We're using an exponential function because it will always output a value between 0 and 1, where 0 means an event will never occur, and 1 means it will certainly occur
 
@@ -156,6 +161,8 @@ Simulation V1 represents an older, simpler model which achieves the same results
 ## Plans for final revisions
 * Updating code to work with smaller number of players, possibly adjusting weights or base utility
 * Adjusting parts with mechanisms to show multiple rounds
+* Discuss ethical implications, such as the moral costs of arms races and the role of trust-building mechanisms in diplomacy.
+* Investigate Pareto efficiency in outcomes. Are there situations where cooperation is suboptimal but still a Nash equilibrium?
 
  
   
