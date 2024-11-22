@@ -328,8 +328,14 @@ if __name__ == "__main__":
     print("")
     print("")
 
+    print("Part 1:")
+    print("Each nation has a reputation from 0-1. 0 means that nation is very likely to defect and 1 means that nation is very likely to cooperate.")
+    print("For this first simulation, every nation has a bad reputation (each nation's reputation ranges from 0 -> 0.3), meaning that they are all likely to defect")
+    print("This will be seen below.")
+    print("")
 
     for k in range(rounds):
+        print(f"Round {k+1}: ")
         for i in range(n):
             print(f"Nation {i+1}'s turn...")
             expCop = getExpectedUtilityCooperating(i, n)
@@ -344,10 +350,11 @@ if __name__ == "__main__":
             print("")
             print("")
 
-    print("Each nation has a reputation from 0-1. 0 means that nation is very likely to defect and 1 means that nation is very likley to cooperate.")
-    print("For this first simulation, every nation had a bad reputation (each nation's reputation ranged from 0 -> 0.3). Meaning that they were all likley to defect")
+
+    print("Part 2:")
     print("Lets change the reputation of each nation to range from 0.7 -> 1")
-    print("This will be our first mechanism.Reputations for each nation can be improved via a global peace treaty to stop building arms")
+    print("This will be our first mechanism. A nation has incentive to have a higher reputation because they know ")
+    print("other nations also consider their reputation when determining if they will cooperate or defect.")
 
 
     reputations = getReputations(n, 0.7, 1)
@@ -373,10 +380,16 @@ if __name__ == "__main__":
     print("")
     print("")
 
+    print("Part 3:")
     print("Now we will set the reputation back to range to 0 -> 0.3")
-    print("Relationships between each nation can also help other nations to cooperate. Currently, they range from -0.5 to 0... -1 being a purley negative relationship and 1 being a purley positive relationship")
-    print("We set them to range between -0.5 and 0.2 to represent that some nations have somewhat positive relations while others have somewhat negative ones")
-    print("So if we change the relationships from -0.5 -> 0.2 to 0 -> 1, we should see more nations cooperating as well")
+
+    # Not sure what u mean :p
+    print("Relationships between each nation can also help other nations to cooperate. We can improve them through something ")
+    print("like a global peace treaty to stop building arms. Currently, they range from -1 to 1 with -1 being a purely negative")
+    print("relationship and 1 being a purely positive relationship.")
+    print("We set them to range between -0.5 and 0.2 to represent that some nations have somewhat positive relations while others")
+    print("have somewhat negative ones")
+    print("If we change the relationships from -0.5 -> 0.2 to 0 -> 1, we should see more nations cooperating as well.")
 
     print("")
     print("")
@@ -403,6 +416,7 @@ if __name__ == "__main__":
     print("")
     print("")
 
+    print("Part 4:")
     print("Now we will add a global support mechanism")
     print("This is when some global force or organization comes and helps each nation to cooperate")
     print("This is done by giving each nation some extra cooperating utility. With this mechansim, we are giving an extra 50 util points if a nation cooperates")
