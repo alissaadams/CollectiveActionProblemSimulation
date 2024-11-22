@@ -105,7 +105,7 @@ $$
   *  player i's previous choice
   *  player i's relationship with N and,
   *  player i's reputation for defecting/cooperating 
-> The relationship value changes with each calculation, enabling each country to evaluate probabilities based on its unique relationships with others. In this example, the relationship value represents the connection between the current player, N , and another country, i. Player N  calculates the probability of cooperation by considering i's reputation,  N's relationship with i, and i's previous decision to cooperate or defect. This process is repeated for all players i. Once player N  completes their calculations, the process moves to player N+1, who performs the same evaluation. This continues sequentially for all N players.
+> The relationship value varies with each calculation, enabling each country to evaluate probabilities based on its unique relationships with others. In this example, the relationship value represents the connection between the current player, N, and another country, $$i$$. Player N  calculates the probability of cooperation by considering $$i$$'s reputation,  N's relationship with $$i$$, and $$i$$'s previous decision to cooperate or defect. This process is repeated for all players $$i$$. Once player N  completes their calculations, the process moves to player N+1, who performs the same evaluation. This continues sequentially for all N players.
 * In this implementation, w1, w2, and w3 are fixed weights that determine the relative influence of each factor on the probability of cooperation.
 * We're using an exponential function because it will always output a value between 0 and 1, where 0 means an event will never occur, and 1 means it will certainly occur
 
