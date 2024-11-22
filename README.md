@@ -111,17 +111,28 @@ $$
 
 ## Simulation Description
 
-Simulation V2 uses our new utility functions for an n player game. We coded this simulation so that it represents a realistic real world outcome. 
+Simulation V2 uses our new utility functions for an n player game. We coded this simulation so that it represents a realistic real world outcome. We recommend running the simulation with around 4-5 players and 2-3 rounds for readability to get a clear evaluation of the players choices.
 
-In this simulation, there are two rounds. In both rounds, each nation compares its expected utility when cooperating to their expected utility when defecting. Each nation then chooses the maximum between the two. 
+In this simulation, the user selects the number of rounds. In each round, each nation compares its utility when cooperating to their utility when defecting which are both dependent upon three variables: reputation, relationship with another nation, and the other nations previous choice. Each nation then chooses the maximum between the two. We broke up our simulation into four parts to demonstrate how players will behave with and without our mechanisms.
 
-In this simulation, one important factor is the “reputation” of each nation. This is a number from 0 to 1. Zero means that a nation will always defect and one means a nation will always cooperate. This reputation is used in the probability function and is weighed much heavier than all other parameters. 
+#### Part 1
 
-In the first round, all n players should defect. This is because in the real world, most nations are skeptical of each other and will assume that every other nation is very likely to defect and build arms. Thus, it's in every nation's best interest to also defect and build arms. To represent real world conditions, we set the reputation of each nation to range from 0 to 0.3 to show the initial cautious outlook nations have on one another. 
+This is the part where mechanisms have not been implemented, resulting in defection being the dominant strategy each round. This is because in the real world, most nations are skeptical of each other and will assume that every other nation is very likely to defect and build arms. Thus, it's in every nation's best interest to also defect and build arms. To represent real world conditions, we set the reputation of each nation to range from 0 to 0.3 to show the initial cautious outlook nations have on one another. 
 
-In our second round, we want to show what could be possible with future mechanisms. We change each country's reputation to range from 0.7 to 1.0, showing more developed and trustworthy relationships between nations. Thus, each nation should now cooperate. This is because, if everyone is willing to cooperate, every nation gets more utility compared to when they defect. 
+#### Part 2
 
-Therefore, this second round shows that with the proper mechanisms, we can reach a globally optimal Nash, where no nations defect! 
+In part two we implement our first mechanism. In this simulation, one important factor is the “reputation” of each nation, as mentioned above. This is a number from 0 to 1. Zero means that a nation will always defect and one means a nation will always cooperate. This reputation is used in the probability function and is weighed heavier than the other parameters because it represents the level of trust and their expectation for the other player's actions. We adjusted each country's reputation to range from 0.7 to 1.0, showing more developed and trustworthy relationships between nations. The output should be most if not all cooperating. 
+
+#### Part 3
+
+Our second mechanism is through our relationships variable. We decided to implement something like a peace treaty to improve relationship values to incentivize cooperation. We set them to range between -0.5 and 0.2 to represent that some nations have somewhat positive relations while others
+have somewhat negative ones. The output should be most if not all cooperating.
+
+#### Part 3
+
+In our final part we introduce our last mechanism representing a global organization providing incentives to cooperate through things like economic advantages(financial assistance or trade), security assurances, etc. This is a value that adds to our utility function to influence players to cooperate, which is what will be seen once the simulation is run. 
+
+Parts 2-3 show that with the proper mechanisms, we can reach a globally optimal Nash, where no nations defect! 
 
 Simulation V1 represents an older, simpler model which achieves the same results. However, simulation V1 does not use our new utility functions.
 
@@ -141,6 +152,9 @@ Simulation V1 represents an older, simpler model which achieves the same results
   * Global Support: It is an arbitrary value large enough to persuade players to cooperate that adds to the utility function when the player chooses to cooperate.(Ex. security assurances, financial aid) 
   * Reputation: With a higher value(better reputation) the probability of them defecting decreases, which will result in a smaller likelihood of other nations defecting
   * Relationship: With a higher value (better relationship) the probability of nations defecting decreases, which will result in a smaller likelihood of other nations defecting
+ 
+## Plans for final revisions
+* Updating code to work with smaller number of players, possibly adjusting weights or base utility 
 
  
   
