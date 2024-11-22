@@ -383,9 +383,8 @@ if __name__ == "__main__":
     print("Part 3:")
     print("Now we will set the reputation back to range to 0 -> 0.3")
 
-    # Not sure what u mean :p
     print("Relationships between each nation can also help other nations to cooperate. We can improve them through something ")
-    print("like a global peace treaty to stop building arms. Currently, they range from -1 to 1 with -1 being a purely negative")
+    print("like a global peace treaty to stop building arms. Currently, they can range from -1 to 1 with -1 being a purely negative")
     print("relationship and 1 being a purely positive relationship.")
     print("We set them to range between -0.5 and 0.2 to represent that some nations have somewhat positive relations while others")
     print("have somewhat negative ones")
