@@ -1,4 +1,4 @@
-# CollectiveActionProblemSImulation
+# CollectiveActionProblemSimulation
 # Nuclear Arms - A Security Dilemma 
 
 **Note: We have two versions of the simulation, our original and our newest version. This readME describes the updated version(V2), and our original is there for our reference.*
@@ -18,8 +18,8 @@ This simulation explores how individual decisions affect utility and outcomes fo
 ### Variables 
     * Let n_b = number of countries that build arms
     * Let n_nb = number of countries that do NOT build arms
-    * Ub = utility for building arms 
-    * Unb = utility for not building arms
+    * U^D = utility for building arms 
+    * U^C = utility for not building arms
 
 ### **Utility for Building Arms:**
 
@@ -67,10 +67,10 @@ To make the decision each round, we formulated expected utility functions for bo
   * Probability of all countries defecting
   * All probabilities of all combinations (2 ^ N-1) of each country either cooperating or defecting
 
-### Utilities:
-These functions calculate the utility considering the probabilities of all players cooperating or defecting based on player 𝐴's decision to cooperate or defect, factoring in both the best-case scenario (where all cooperate) and worst-case scenarios (where some or all defect). This reflects the uncertainty and strategic complexity in international relations.
+### Predicted Utilities:
+These functions calculate a predicted utility using our base utilities from above. We consider the probabilities of all players cooperating or defecting based on player 𝐴's decision to cooperate or defect, factoring in both the best-case scenario (where all cooperate) and worst-case scenarios (where some or all defect). This reflects the uncertainty and strategic complexity in international relations.
 
-#### Utility if Country A Cooperates:
+#### Predicted Utility if Country A Cooperates:
 
 $$
 U_A \mid A \text{ cooperates} = \sum_{S \subset \{1, 2, \ldots, N\}, S \neq A} U_A^{C} \cdot \prod_{i \in S} p_i^{i_r, iA, 0} \cdot \prod_{i \in \bar{S}} (1 - p_i^{i_r, iA, 0})
@@ -83,7 +83,7 @@ $$
 - **$$\prod_{i \in \bar{S}} (1 - p_i^{i_r, iA, 0})$$**: Gives probability that all players not in 𝑆 will defect, $$1 - p_i$$ represents the probability that player $$i$$ defects 
 
 
-#### Utility if Country A Does NOT Coooperate:
+#### Predicted Utility if Country A Does NOT Coooperate:
 
 $$
 U_A \mid A \text{ defects} = \sum_{S \subset \{1, 2, \ldots, N\}, S \neq A} U_A^{D} \cdot \prod_{i \in S} p_i^{i_r, iA, 1} \cdot \prod_{i \in \bar{S}} (1 - p_i^{i_r, iA, 1})
@@ -111,7 +111,7 @@ $$
 
 ## Simulation Description
 
-Simulation V2 uses our new utility functions for an n player game. We coded this simulation so that it represents a realistic real world outcome. We recommend running the simulation with around 4-5 players and 2-3 rounds for readability to get a clear evaluation of the players choices.
+Simulation V2 uses our new utility functions for an n player game. We coded this simulation so that it represents a realistic real world outcome. We recommend running the simulation with around 4-5 players and 2-3 rounds for readability to get a clear evaluation of each player's choices.
 
 In this simulation, the user selects the number of rounds. In each round, each nation compares its utility when cooperating to their utility when defecting which are both dependent upon three variables: reputation, relationship with another nation, and the other nations previous choice. Each nation then chooses the maximum between the two. We broke up our simulation into four parts to demonstrate how players will behave with and without our mechanisms.
 
@@ -154,7 +154,8 @@ Simulation V1 represents an older, simpler model which achieves the same results
   * Relationship: With a higher value (better relationship) the probability of nations defecting decreases, which will result in a smaller likelihood of other nations defecting
  
 ## Plans for final revisions
-* Updating code to work with smaller number of players, possibly adjusting weights or base utility 
+* Updating code to work with smaller number of players, possibly adjusting weights or base utility
+* Adjusting parts with mechanisms to show multiple rounds
 
  
   
