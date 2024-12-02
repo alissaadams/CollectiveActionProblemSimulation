@@ -5,17 +5,19 @@ import itertools
 def getRelationships(n, upper, lower):
     '''
     :param n: the number of players/nations
+    :param upper: an upper bound for relationships (between -1 and 1)
+    :param lower: a lower bound for relationships (between -1 and 1)
     :return: map of relationships
 
-    Key will be a nation, and the value will be an array
-    each index of the array will represent the relationship with the key
+    The key in the map we return will be a nation, and the value will be an array
+    Each index of the array will represent the relationship with that key
 
     So if there are 5 players. And we do relationships[3], this will give us an array for nation 3, call it relations. Then
-    if we do relations[4] this gives us nations 3 relationship with nation 4.
+    if we do relations[4] this gives us nation 3's relationship with nation 4.
 
-    Note that if we deo relations[3], this will be a zero, because nations 3 relationship with itself is neutral.
-    And not that relationships[3][4] == relationships[4][3] because nations 3 relationship with nation 4 is the same as nation's
-    4 relationship with nation 3.
+    Note that if we do relations[3] for nation 3, this will be a zero, because nation 3's relationship with itself is neutral.
+    And note that relationships[3][4] == relationships[4][3] because nation 3's relationship with nation 4 is assumed to be the same as nation
+    4's relationship with nation 3.
     '''
     relationships = dict()
     for i in range(n):
@@ -48,48 +50,31 @@ def getReputations(n, lower, upper):
 
     return reputation
 
-def populatiryPoints(numCooperated):
-    '''
-    :param numCooperated:
-    :return: peacePoints
-
-    This is a mechanism that will increase utility for cooperation. Basically, the first nation that cooperates will get
-    lots of popularity points as they will gain social respect. Later, as more nations cooperate, they receive lets
-    popularity points as they were not the first nations to cooperate. We chose 200 to give nations enough incentive to change
-    their decision when the mechanism is implemented
-
-    '''
-    return 200 / (numCooperated + 1)
-
 def cooperatingUtility(numPlayersDefecting, cooperatingUtility=15, cooperatingScalar=2):
     '''
-
     :param numPlayersDefecting: number of players defecting
     :param cooperatingUtility: A constant that represents the base utility for cooperating
     :param cooperatingScalar: A constant that represents the base cost for cooperating
     :return: utility that represent cooperating
 
     This models our cooperating utility function found in the readMe.
-
     '''
     return cooperatingUtility - (cooperatingScalar * math.log(1 + numPlayersDefecting))
 
 def cooperatingUtilityMech(numPlayersDefecting, cooperatingUtility=15, cooperatingScalar=2):
     '''
-
     :param numPlayersDefecting: number of players defecting
     :param cooperatingUtility: A constant that represents the base utility for cooperating
     :param cooperatingScalar: A constant that represents the base cost for cooperating
     :return: utility that represent cooperating
 
     This models our cooperating utility function found in the readMe.
-    This utility function has an additional mechanism to encourage cooperation. It provides 175 extra util points
+    This utility function has an additional mechanism to encourage cooperation. It provides 50 extra util points!
     '''
     return cooperatingUtility - (cooperatingScalar * math.log(1 + numPlayersDefecting)) + 50
 
 def defectingUtility(numPlayersDefecting, defectingUtility=30, defectingScalar=3):
     '''
-
     :param numPlayersDefecting: number of players defecting
     :param defectingUtility: A constant that represents the base utility for defecting
     :param defectingScalar: A constant that represents the base cost for defecting
@@ -101,7 +86,6 @@ def defectingUtility(numPlayersDefecting, defectingUtility=30, defectingScalar=3
 
 def probabiltiy(a, b, choice):
     '''
-
     :param a: nation that is making the choice to either defect or cooperate
     :param b: this is the "other" nation that nation a is considering
     :param choice: if a is cooperating or defecting
@@ -111,11 +95,10 @@ def probabiltiy(a, b, choice):
 
     weights were chosen to represent the amount of importance each value has in calculating
     the probability
-
     '''
-    w1 = 5
-    w2 = 3
-    w3 = 1
+    w1 = 5 # for reputations
+    w2 = 3 # for relationships
+    w3 = 1 # for choice
 
     x = (reputations[b] * w1) + (relationships[a][b] * w2) + (-choice * w3)
 
@@ -123,8 +106,9 @@ def probabiltiy(a, b, choice):
 
 def get_combinations(arr):
     '''
-
-    :param arr: An array of all n nations. EX: If there are 5 nations, arr = [0,1,2,3,4]
+    :param arr: An array of all (n-1) nations. EX: If there are 5 nations, and we want all combinations
+    for nation 3, arr = [0,1,2,4]. It will not include the nation that uses this helper function. This is because
+    in our predicted utility functions, we iterate over all nations except itself (S != A in the readMe)
     :return: An array of all possible combinations for players
 
     used for getExpectedUtilityCombinations
@@ -141,8 +125,8 @@ def get_combinations(arr):
 def getExpectedUtilityCombinations(currNation, combinations, choice):
     '''
     :param currNation: represents the nation that is making the choice to either defect or cooperate
-    :param combinations: an array of nations. We assume that each nation in this array will defect. Any nation
-    not in this array will cooperate
+    :param combinations: a 2D array of nations. We assume that each nation in the subarrays will defect. Any nation
+    not in this subarray will cooperate
     :param choice: if currNation is cooperating or defecting
     :return: total utility for all possible combinations
 
@@ -150,35 +134,42 @@ def getExpectedUtilityCombinations(currNation, combinations, choice):
     cooperating and defecting
 
     '''
-    # for defecting
     totalUtility = 0
 
+    # for each array in combinations
     for combo in combinations:
         percentOfCooperate = 1
         percentOfDefect = 1
 
         for otherNation in combo:
+            # all players in combo assumed to defect
             percentOfDefect *= (1 - probabiltiy(currNation, otherNation, choice))
 
         for otherNation in players:
             if otherNation not in combo:
+                # all players NOT in combo assumed to cooperate
                 percentOfCooperate *= probabiltiy(currNation, otherNation, choice)
+        # get total utility
         totalUtility += (percentOfCooperate * cooperatingUtility(n - len(combo))) + (
                     percentOfDefect * defectingUtility(len(combo)))
+    # round to two decimal points
     return round(totalUtility, 2)
 
 def getExpectedUtilityCombinationsMech(currNation, combinations, choice):
     '''
     :param currNation: represents the nation that is making the choice to either defect or cooperate
-    :param combinations: an array of nations. We assume that each nation in this array will defect.Any nation
-    not in this array will cooperate
+    :param combinations:  a 2D array of nations. We assume that each nation in the subarrays will defect. Any nation
+    not in this subarray will cooperate
     :param choice: if currNation is cooperating or defecting
     :return: total utility for all possible combinations
 
     This represents the complex summation part of the equation in readMe
 
     This function sums the utility over all subsets of players excluding the current nation based on the probability of each player
-    cooperating and defecting, and factors in the mechanism to update the utility if the player cooperates
+    cooperating and defecting
+
+    Same as getExpectedUtilityCombinations, except this uses the global support mechanism (uses cooperatingUtilityMech function instead
+    of the cooperatingUtility function)
     '''
     # for defecting
     totalUtility = 0
@@ -203,7 +194,6 @@ def getExpectedUtilityCooperating(thisCountry, n, choice=True):
     :param n: number of players / nations
     :param choice: if thisCountry is cooperating or defecting. Always set to True ( 1 ).
     :return: total utility assuming that thisCountry is cooperating
-
     '''
 
     # total probability of all nations defecting
@@ -213,6 +203,7 @@ def getExpectedUtilityCooperating(thisCountry, n, choice=True):
     otherNations = []
 
     for j in range(n):
+        # skip thisCountry
         if thisCountry == j:
             continue
 
@@ -225,15 +216,18 @@ def getExpectedUtilityCooperating(thisCountry, n, choice=True):
         totalProbDefect *= probCD
         totalProbCooperate *= probCC
 
+    # Gets total utility for all combinations
     combinations = getExpectedUtilityCombinations(thisCountry, get_combinations(otherNations), 0)
-    totalPD = totalProbDefect * defectingUtility(n - 1)
-    totalPC = totalProbCooperate * cooperatingUtility(0)
+    # Gets total utility when everyone defects
+    totalPDUtility = totalProbDefect * defectingUtility(n - 1)
+    # Gets total utility when everyone cooperates
+    totalPCUtility = totalProbCooperate * cooperatingUtility(0)
 
-    print(f"Now nation {thisCountry} is considering what all other nations will do when nation {thisCountry} cooperates")
-    print(f"If nation {thisCountry} cooperates, the total probability of all other nations cooperating is {round(totalProbCooperate * 100, 2)}%, and")
+    print(f"Now nation {thisCountry + 1} is considering what all other nations will do when nation {thisCountry + 1} cooperates")
+    print(f"If nation {thisCountry + 1} cooperates, the total probability of all other nations cooperating is {round(totalProbCooperate * 100, 2)}%, and")
     print(f"the total probability of all other nations defecting is {round(totalProbDefect * 100, 2)}%")
-    # If nation {thisCountry} cooperates,
-    res = totalPD + totalPC + combinations
+
+    res = totalPDUtility + totalPCUtility + combinations
     return round(res, 2)
 
 def getExpectedUtilityCooperatingMech(thisCountry, n, choice=True):
@@ -242,6 +236,8 @@ def getExpectedUtilityCooperatingMech(thisCountry, n, choice=True):
     :param n: number of players / nations
     :param choice: if thisCountry is cooperating or defecting. Always set to True ( 1 ).
     :return: total utility assuming that thisCountry is cooperating
+
+    Same as above but with global support mechanism!
     '''
 
     # total probability of all nations defecting
@@ -263,13 +259,16 @@ def getExpectedUtilityCooperatingMech(thisCountry, n, choice=True):
         totalProbDefect *= probCD
         totalProbCooperate *= probCC
 
+    # Gets total utility for all combinations
     combinations = getExpectedUtilityCombinationsMech(thisCountry, get_combinations(otherNations), 0)
+    # Gets total utility when everyone defects
     totalPD = totalProbDefect * defectingUtility(n - 1)
+    # Gets total utility when everyone cooperates
     totalPC = totalProbCooperate * cooperatingUtilityMech(0)
 
-    print(f"Now nation {thisCountry} is considering what all other nations will do when nation {thisCountry} cooperates")
-    print(f"If nation {thisCountry} cooperates, the total probability of all other nations cooperating is {round(totalProbCooperate * 100, 2)}%")
-    print(f"If nation {thisCountry} cooperates, the total probability of all other nations defecting is {round(totalProbDefect * 100, 2)}%")
+    print(f"Now nation {thisCountry + 1} is considering what all other nations will do when nation {thisCountry + 1} cooperates")
+    print(f"If nation {thisCountry + 1} cooperates, the total probability of all other nations cooperating is {round(totalProbCooperate * 100, 2)}%")
+    print(f"If nation {thisCountry + 1} cooperates, the total probability of all other nations defecting is {round(totalProbDefect * 100, 2)}%")
 
     res = totalPD + totalPC + combinations
     return round(res, 2)
@@ -280,7 +279,6 @@ def getExpectedUtilityDefecting(thisCountry, n, choice=False):
     :param n: number of players / nations
     :param choice: if thisCountry is cooperating or defecting. Always set to False ( 0 ).
     :return: total utility assuming that thisCountry is defecting
-
     '''
 
     # total probability of all nations defecting
@@ -302,61 +300,67 @@ def getExpectedUtilityDefecting(thisCountry, n, choice=False):
         totalProbDefect *= probDD
         totalProbCooperate *= probDC
 
+    # Gets total utility for all combinations
     combinationsUtility = getExpectedUtilityCombinations(thisCountry, get_combinations(otherNations), 1)
+    # Gets total utility when everyone defects
     totalPDUtility = totalProbDefect * defectingUtility(n - 1)
+    # Gets total utility when everyone cooperates
     totalPCUtility = totalProbCooperate * cooperatingUtility(0)
 
-    print(f"Now nation {thisCountry} is considering what all other nations will do when nation {thisCountry} defects")
+    print(f"Now nation {thisCountry + 1} is considering what all other nations will do when nation {thisCountry + 1} defects")
     print(
-        f"If nation {thisCountry} defects, the total probability of all other nations cooperating is {round(totalProbCooperate * 100, 2)}%, and")
+        f"If nation {thisCountry + 1} defects, the total probability of all other nations cooperating is {round(totalProbCooperate * 100, 2)}%, and")
     print(
         f"the total probability of all other nations defecting is {round(totalProbDefect * 100, 2)}%")
 
-    res = (totalPDUtility + totalPCUtility + combinationsUtility)
+    res = totalPDUtility + totalPCUtility + combinationsUtility
     return round(res, 2)
 
 if __name__ == "__main__":
 
     # basic set up
     n = int(input("How Many Players Do You Want? "))
-    rounds = int(input("How many rounds? "))
     players = [i for i in range(n)]
     relationships = getRelationships(n, -0.5, 0.2)
     reputations = getReputations(n, 0, 0.3)
-    numCooperated = 0
 
     print("")
     print("")
 
     print("Part 1:")
-    print("Each nation has a reputation from 0-1. 0 means that nation is very likely to defect and 1 means that nation is very likely to cooperate.")
-    print("For this first simulation, every nation has a bad reputation (each nation's reputation ranges from 0 -> 0.3), meaning that they are all likely to defect")
-    print("This will be seen below.")
+    print("Each nation can have a reputation from 0 -> 1. 0 means that a nation is very likely to defect and 1 means that a nation is very likely to cooperate.")
+    print("Also, each nation can have a relationship from -1 -> 1 with every other nation. -1 represents a purely negative relationship. 1 represent a purely possitive one.")
+    print("For this first simulation, every nation has a \"bad\" reputation (each nation's reputation ranges from 0 -> 0.3), meaning that they are all likely to defect")
+    print("Also, each nation has mixed relationships with every other nation (currently ranging between -0.2 -> 0.5), meaning some nations have somewhat positive relations while others")
+    print("have somewhat negative ones.")
+    print("The results of these factors can be seen below.")
     print("")
 
-    for k in range(rounds):
-        print(f"Round {k+1}: ")
-        for i in range(n):
-            print(f"Nation {i+1}'s turn...")
-            expCop = getExpectedUtilityCooperating(i, n)
-            expDef = getExpectedUtilityDefecting(i, n)
-            print(f"Nation {i+1}'s expected utility for cooperating is {expCop} ")
-            print(f"Nation {i+1}'s expected utility for defecting is {expDef} ")
-            if expCop > expDef:
-                print(f'{i} chooses to cooperate')
-                numCooperated += 1
-            else:
-                print(f'{i+1} chooses to defect')
-            print("")
-            print("")
+    for i in range(n):
+        print(f"Nation {i+1}'s turn...")
+        expCop = getExpectedUtilityCooperating(i, n)
+        expDef = getExpectedUtilityDefecting(i, n)
+        print(f"Nation {i+1}'s expected utility for cooperating is {expCop} ")
+        print(f"Nation {i+1}'s expected utility for defecting is {expDef} ")
+        if expCop > expDef:
+            print(f'{i} chooses to cooperate')
+        else:
+            print(f'{i+1} chooses to defect')
+        print("")
+        print("")
 
 
     print("Part 2:")
     print("Lets change the reputation of each nation to range from 0.7 -> 1")
     print("This will be our first mechanism. A nation has incentive to have a higher reputation because they know ")
     print("other nations also consider their reputation when determining if they will cooperate or defect.")
+    print("Ways to increase reputations: ")
+    print("1")
+    print("1")
+    print("1")
 
 
+    # change reputation as part of our first mechanism
     reputations = getReputations(n, 0.7, 1)
     numCooperated = 0
     print("")
@@ -368,7 +372,6 @@ if __name__ == "__main__":
         print(f"Nation {i+1}'s expected utility for cooperating is {expCop} ")
         print(f"Nation {i+1}'s expected utility for defecting is {expDef} ")
         if expCop > expDef:
-            numCooperated += 1
             print(f'{i+1} chooses to cooperate')
         else:
             print(f'{i+1} chooses to defect')
@@ -381,19 +384,21 @@ if __name__ == "__main__":
     print("")
 
     print("Part 3:")
-    print("Now we will set the reputation back to range to 0 -> 0.3")
+    print("Now we will set the reputation back to range from 0 -> 0.3")
+    print("Relationships between each nation can also help other nations to cooperate.")
+    print("If we change the relationships from -0.5 -> 0.2 to 0 -> 1, we should see more nations cooperating.")
+    print("Ways to increase relationships: ")
+    print("1")
+    print("1")
+    print("1")
 
-    print("Relationships between each nation can also help other nations to cooperate. We can improve them through something ")
-    print("like a global peace treaty to stop building arms. Currently, they can range from -1 to 1 with -1 being a purely negative")
-    print("relationship and 1 being a purely positive relationship.")
-    print("We set them to range between -0.5 and 0.2 to represent that some nations have somewhat positive relations while others")
-    print("have somewhat negative ones")
-    print("If we change the relationships from -0.5 -> 0.2 to 0 -> 1, we should see more nations cooperating as well.")
 
     print("")
     print("")
 
+    # set reputation back to normal
     reputations = getReputations(n, 0, 0.3)
+    # change relationship as part of our second mechanism
     relationships = getRelationships(n, 0, 1)
 
     for i in range(n):
@@ -403,7 +408,6 @@ if __name__ == "__main__":
         print(f"Nation {i+1}'s expected utility for cooperating is {expCop} ")
         print(f"Nation {i+1}'s expected utility for defecting is {expDef} ")
         if expCop > expDef:
-            numCooperated += 1
             print(f'{i+1} chooses to cooperate')
         else:
             print(f'{i+1} chooses to defect')
@@ -420,14 +424,12 @@ if __name__ == "__main__":
     print("This is when some global force or organization comes and helps each nation to cooperate")
     print("This is done by giving each nation some extra cooperating utility. With this mechansim, we are giving an extra 50 util points if a nation cooperates")
     print("Util points can correlate to things like money, social praise, increased trading rights, etc.")
-    print("With this mechanism, we should see countries more likely to cooperate.")
+    print("With this mechanism, we should see countries are more likely to cooperate.")
     print("")
     print("")
 
-    reputations = getReputations(n, 0, 0.3)
+    # Set relationships back to normal
     relationships = getRelationships(n, -0.5, 0.2)
-
-
 
     for i in range(n):
         print(f"Nation {i+1}'s turn...")
@@ -436,7 +438,6 @@ if __name__ == "__main__":
         print(f"Nation {i+1}'s expected utility for cooperating is {expCop} ")
         print(f"Nation {i+1}'s expected utility for defecting is {expDef} ")
         if expCop > expDef:
-            numCooperated += 1
             print(f'{i+1} chooses to cooperate')
         else:
             print(f'{i+1} chooses to defect')
@@ -444,22 +445,3 @@ if __name__ == "__main__":
         print("")
 
     print("As we can see, the global support mechanism increases cooperation")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
