@@ -125,14 +125,14 @@ In part two we implement our first mechanism. In this simulation, one important 
 
 #### Part 3
 
-Our second mechanism is through our relationships variable. We decided to implement something like a peace treaty to improve relationship values to incentivize cooperation. We set them to range between -0.5 and 0.2 to represent that some nations have somewhat positive relations while others
+Our second mechanism is through our relationships variable. We decided to implement something like a peace treaty to improve relationship values to incentivize cooperation. We set them to range between -1 and 1, with 1 being a purely positive and -1 being purely negative. In our simulation each nation will have a mixed relationship with every other nation, ranging from -0.5 and 0.2 to represent that some nations have somewhat positive relations while others
 have somewhat negative ones. The output should be most if not all cooperating.
 
 #### Part 4
 
 In our final part we introduce our last mechanism representing a global organization providing incentives to cooperate through things like economic advantages(financial assistance or trade), security assurances, etc. This is a value that adds to our utility function to influence players to cooperate, which is what will be seen once the simulation is run. 
 
-Parts 2-3 show that with the proper mechanisms, we can reach a globally optimal Nash, where no nations defect! 
+Parts 2-4 show that with the proper mechanisms, we can reach a globally optimal Nash, where no nations defect! 
 
 Simulation V1 represents an older, simpler model which achieves the same results. However, simulation V1 does not use our new utility functions.
 
@@ -149,8 +149,14 @@ Simulation V1 represents an older, simpler model which achieves the same results
 ## Implemented Mechanisms
 * If we recognize that players will prefer strategies that mitigate risk due to the convexity of our function, we choose mechanisms that are aimed more toward incentivizing cooperation, and disincentivizing defection to achieve a more optimal outcome
 * The three we decided on are:
-  * Global Support: It is an arbitrary value large enough to persuade players to cooperate that adds to the utility function when the player chooses to cooperate.(Ex. security assurances, financial aid) 
-  * Reputation: With a higher value(better reputation) the probability of them defecting decreases, which will result in a smaller likelihood of other nations defecting
+  * Global Support: It is an arbitrary value large enough to persuade players to cooperate that adds to the utility function when the player chooses to cooperate. Some examples are:
+     * Security assurances between countries
+     * Financial aid from one country to another
+  * Reputation: With a higher value(better reputation) the probability of them defecting decreases, which will result in a smaller likelihood of other nations defecting. Some examples as shown in the simulation are:
+    * Choosing to commit to reducing the spread of nuclear arsenals through peace treaties
+    * Engaging in peace talks and diplomacy with other countries
+    * Providing transparency to other nations about their current arsenal to avoid misunderstandings
+
   * Relationship: With a higher value (better relationship) the probability of nations defecting decreases, which will result in a smaller likelihood of other nations defecting
  
 ## Plans for final revisions
