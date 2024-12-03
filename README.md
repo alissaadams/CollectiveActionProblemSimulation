@@ -97,7 +97,7 @@ $$
 
 Simulation V2 uses our new utility functions for an n player game. We coded this simulation so that it represents a realistic real world outcome. We recommend running the simulation with around 4-5 players for readability to get a clear evaluation of each player's choices.
 
-In this simulation, the user selects the number of players. Each nation compares its utility when cooperating to their utility when defecting which are both dependent upon three variables: reputation, relationship with another nation, and the other nations previous choice. Each nation then chooses the maximum between the two. We broke up our simulation into four parts to demonstrate how players will behave with and without our mechanisms.
+In this simulation, the user selects the number of players. Each nation compares its utility when cooperating to their utility when defecting which are both dependent upon three variables: reputation, relationship with another nation, and the nations choice (defecting or cooperating). Each nation then chooses the maximum between the two. We broke up our simulation into four parts to demonstrate how players will behave with and without our mechanisms.
 
 #### Part 1
 
