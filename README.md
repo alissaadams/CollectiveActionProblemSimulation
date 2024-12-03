@@ -24,45 +24,29 @@ This simulation explores how individual decisions affect utility and outcomes fo
 ### **Utility for Building Arms:**
 
 $$
-U^D = A - C(n_B)
+U^D = A - (X * ln(n_{b} + 1))
 $$
 
     * A is the utility gained for building arms, a fixed value
-    * C(n_b) is the cost function shown below:
+    * X is a constant that represents the scaling factor of the cost for building
+    * ln(n_b + 1) is the logarithm of the number of countries building arms
 
-
-  $$
-  C(n_B) = X * ln(n_B + 1)
-  $$
-
-*where:*
-
-    * ln (n_B + 1) is the logarithm of the number of countries building arms
 >The idea for a logarithmic function is that the tensions will eventually plateau as more nations are added or contribute to their nuclear arms. The incremental impact on each nation’s utility will decrease. (+ 1 for the case where 0 countries build arms as ln(0) is undefined)
 
 
 ### **Utility for Not Building Arms:**
 
 $$ 
-U^C = B - Y*ln(n_B + 1)
+U^C = B - (Y * ln(n_{b} + 1))
 $$ 
 
     * B is the utilty that a nation gets for not building arms (like peace points), a fixed value
-    * G(n_b) is the cost function for not building arms shown below:
-
-$$
-G(n_b) = Y * ln(n_B + 1)
-$$
-
-*where:*
-
-    * Y is the constant representing the scale of the cost
-    * n_B is the number of countries not building arms
+    * Y is a constant that represents the scaling factor of the cost for not building
 
 ### Dominant Strategy Game
 We chose a dominant strategy game in order to simulate a more realistic environment, where countries are faced with uncertainties of other nations' actions but still choose what's in their best interest. In this game, each country has a clear best strategy(defecting) regardless of what other nations choose to do. We wanted to incorporate more factors playing a role in the decision making process to express the complexity of strategic considerations countries have to make. Each country would consider things like international relationships, reputation, and previous choices to calculate the probability that other countries would cooperate or defect, and base their own decision off of that probability. 
 
-To make the decision each round, we formulated expected utility functions for both if a country cooperates or deviates. The utility differs depending on the choice they make, but in both cases they need to consider:
+To make the decision each round, we formulated utility functions for predicted utility for both if a country cooperates or deviates. The utility differs depending on the choice they make, but in both cases they need to consider:
   * Probability of all countries cooperating
   * Probability of all countries defecting
   * All probabilities of all combinations (2 ^ N-1) of each country either cooperating or defecting
@@ -109,7 +93,7 @@ $$
 * In this implementation, w1, w2, and w3 are fixed weights that determine the relative influence of each factor on the probability of cooperation.
 * We're using an exponential function because it will always output a value between 0 and 1, where 0 means an event will never occur, and 1 means it will certainly occur
 
-## Simulation Description
+## Simulation Description !!
 
 Simulation V2 uses our new utility functions for an n player game. We coded this simulation so that it represents a realistic real world outcome. We recommend running the simulation with around 4-5 players and 2-3 rounds for readability to get a clear evaluation of each player's choices.
 
