@@ -91,13 +91,13 @@ $$
   *  player i's reputation for defecting/cooperating 
 > The relationship value varies with each calculation, enabling each country to evaluate probabilities based on its unique relationships with others. In this example, the relationship value represents the connection between the current player, N, and another country, $$i$$. Player N  calculates the probability of cooperation by considering $$i$$'s reputation,  N's relationship with $$i$$, and $$i$$'s previous decision to cooperate or defect. This process is repeated for all players $$i$$. Once player N  completes their calculations, the process moves to player N+1, who performs the same evaluation. This continues sequentially for all N players.
 * In this implementation, w1, w2, and w3 are fixed weights that determine the relative influence of each factor on the probability of cooperation.
-* We're using an exponential function because it will always output a value between 0 and 1, where 0 means an event will never occur, and 1 means it will certainly occur
+* We're using an exponential function because it will always output a value between 0 and 1, where 0 means an event will never occur, and 1 means it will certainly occur.
 
-## Simulation Description !!
+## Simulation Description
 
-Simulation V2 uses our new utility functions for an n player game. We coded this simulation so that it represents a realistic real world outcome. We recommend running the simulation with around 4-5 players and 2-3 rounds for readability to get a clear evaluation of each player's choices.
+Simulation V2 uses our new utility functions for an n player game. We coded this simulation so that it represents a realistic real world outcome. We recommend running the simulation with around 4-5 players for readability to get a clear evaluation of each player's choices.
 
-In this simulation, the user selects the number of rounds. In each round, each nation compares its utility when cooperating to their utility when defecting which are both dependent upon three variables: reputation, relationship with another nation, and the other nations previous choice. Each nation then chooses the maximum between the two. We broke up our simulation into four parts to demonstrate how players will behave with and without our mechanisms.
+In this simulation, the user selects the number of players. Each nation compares its utility when cooperating to their utility when defecting which are both dependent upon three variables: reputation, relationship with another nation, and the other nations previous choice. Each nation then chooses the maximum between the two. We broke up our simulation into four parts to demonstrate how players will behave with and without our mechanisms.
 
 #### Part 1
 
@@ -123,15 +123,15 @@ Simulation V1 represents an older, simpler model which achieves the same results
 ## Analysis & Theorems
 
 * Since players are maximizing utility based on probabilities of what other countries will do, the nash occurs when:
-  * All countries’ best responses are in equilibrium meaning no country has incentive to change its strategy
-* The Nash Equilibrium is gauranteed because each player is choosing their best response 
-* Countries may find defecting as a dominant strategy, leading to a *suboptimal outcome*
+  * All countries’ best responses are in equilibrium meaning no country has incentive to change its strategy.
+* The Nash Equilibrium is gauranteed because each player is choosing their best response.
+* Countries may find defecting as a dominant strategy, leading to a *suboptimal outcome* but, with mechanisms, the outcome can become the social optimum where everyone's best strategy is to cooperate.
 * Our utility functions are convex meaning:
-  * As players increase their investment in arms (defection), the marginal utility gained decreases
-  * players may be risk-averse, preferring strategies that ensure a more stable and predictable outcome
+  * As players increase their investment in arms (defection), the marginal utility gained decreases.
+  * Players may be risk-averse, preferring strategies that ensure a more stable and predictable outcome.
 
 ## Implemented Mechanisms
-* If we recognize that players will prefer strategies that mitigate risk due to the convexity of our function, we choose mechanisms that are aimed more toward incentivizing cooperation, and disincentivizing defection to achieve a more optimal outcome
+* If we recognize that players will prefer strategies that mitigate risk due to the convexity of our function, we choose mechanisms that are aimed more toward incentivizing cooperation, and disincentivizing defection to achieve a more optimal outcome.
 * The three we decided on are:
   * Global Support: It is an arbitrary value large enough to persuade players to cooperate that adds to the utility function when the player chooses to cooperate. Some examples are:
      * Security assurances between countries
@@ -141,7 +141,10 @@ Simulation V1 represents an older, simpler model which achieves the same results
     * Engaging in peace talks and diplomacy with other countries
     * Providing transparency to other nations about their current arsenal to avoid misunderstandings
 
-  * Relationship: With a higher value (better relationship) the probability of nations defecting decreases, which will result in a smaller likelihood of other nations defecting
+  * Relationship: With a higher value (better relationship) the probability of nations defecting decreases, which will result in a smaller likelihood of other nations defecting. Some examples as shown in the simulation are:
+    * Engage in trade agreements or economic partnerships
+    * Participate in joint military exercises or alliances
+    * Offer humanitarian aid during crises or disasters
 
  
   
