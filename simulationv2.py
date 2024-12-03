@@ -355,9 +355,9 @@ if __name__ == "__main__":
     print("This will be our first mechanism. A nation has incentive to have a higher reputation because they know ")
     print("other nations also consider their reputation when determining if they will cooperate or defect.")
     print("Ways to increase reputations: ")
-    print("Choosing to commit to reducing the spread of nuclear arsenals through peace treaties")
-    print("Engaging in peace talks and diplomacy with other countries")
-    print("Providing transparency to other nations about their current arsenal to avoid misunderstandings")
+    print("1. Choosing to commit to reducing the spread of nuclear arsenals through peace treaties")
+    print("2. Engaging in peace talks and diplomacy with other countries")
+    print("3. Providing transparency to other nations about their current arsenal to avoid misunderstandings")
 
 
     # change reputation as part of our first mechanism
