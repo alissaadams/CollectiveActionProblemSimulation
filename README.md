@@ -142,10 +142,6 @@ Simulation V1 represents an older, simpler model which achieves the same results
     * Providing transparency to other nations about their current arsenal to avoid misunderstandings
 
   * Relationship: With a higher value (better relationship) the probability of nations defecting decreases, which will result in a smaller likelihood of other nations defecting
- 
-## Plans for final revisions
-* Updating code to work with smaller number of players, possibly adjusting weights or base utility
-* Adjusting parts with mechanisms to show multiple rounds
 
  
   
