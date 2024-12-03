@@ -388,9 +388,9 @@ if __name__ == "__main__":
     print("Relationships between each nation can also help other nations to cooperate.")
     print("If we change the relationships from -0.5 -> 0.2 to 0 -> 1, we should see more nations cooperating.")
     print("Ways to increase relationships: ")
-    print("1")
-    print("1")
-    print("1")
+    print("1. Engage in trade agreements or economic partnerships.")
+    print("2. Participate in joint military exercises or alliances.")
+    print("3. Offer humanitarian aid during crises or disasters.")
 
 
     print("")
